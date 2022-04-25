@@ -1,0 +1,33 @@
+<?php
+
+use App\Http\Controllers\CategoriesController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodosController;
+
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/tareas', [TodosController::class, 'index'])->name('todos');
+
+//Especifico el controllador al que se le pasarán los datos que es una clase. Y el método.
+//Todo se pasa como un array
+Route::post('/tareas', [TodosController::class, 'store'])->name('todos');
+
+Route::get('/tareas/{id}', [TodosController::class, 'show'])->name('todos-edit');
+Route::patch('/tareas/{id}', [TodosController::class, 'update'])->name('todos-update');
+Route::delete('/tareas/{id}', [TodosController::class, 'destroy'])->name('todos-destroy');
+
+Route::resource('categories', CategoriesController::class);
